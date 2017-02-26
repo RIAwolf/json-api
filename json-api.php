@@ -21,6 +21,16 @@ $dir = json_api_dir();
 @include_once "$dir/models/author.php";
 @include_once "$dir/models/attachment.php";
 
+@include_once "$dir/models/vvkd/options-segments.php";
+@include_once "$dir/models/vvkd/depths.php";
+@include_once "$dir/models/vvkd/heights.php";
+@include_once "$dir/models/vvkd/lagoon.php";
+@include_once "$dir/models/vvkd/objects.php";
+@include_once "$dir/models/vvkd/options-buoy-colors.php";
+@include_once "$dir/models/vvkd/options-lagoon-categories.php";
+@include_once "$dir/models/vvkd/options-object-types.php";
+
+
 
 
 function json_api_init()
