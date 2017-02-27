@@ -5,22 +5,39 @@ class JSON_API_vvkd_segments_Controller {
 	public function get_segments() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'vvkd_optionssegments';
-		$results = $wpdb->get_results( "SELECT * FROM $table_name;",OBJECT );
-		$rows = array();
-		foreach( $results as $r) {
-			$rows[] = new JSON_API_Options_Segments($r);
+		$results    = $wpdb->get_results( "SELECT * FROM $table_name;", OBJECT );
+		$rows       = array();
+		foreach ( $results as $r ) {
+			$rows[] = new JSON_API_Options_Segments( $r );
 		}
-		//return $results;
-		return array("segments"=>array_values($rows));
-	}
-    public function add_segment(){
 
-        if(array_search('administrator',wp_get_current_user()->roles,true) === false){
-            return $this->get_segments();
-        }else {
-            return "works";
+		//return $results;
+		return array( "segments" => array_values( $rows ) );
+	}
+
+	public function put_segment() {
+		$roles =  wp_get_current_user()->roles;
+		if (  ( array_search( 'administrator', $roles, true ) === false ) ) {
+			return ( "ok" );
+		}
+		global $json_api;
+		$test = $json_api->query->get("Name");
+		$newSegment = new JSON_API_Options_Segments($json_api->query);
+		$newSegment->save();
+		return "done";
+	}
+
+    public function delete_segment() {
+        $roles =  wp_get_current_user()->roles;
+        if (  ( array_search( 'administrator', $roles, true ) === false ) ) {
+            return ( "ok" );
         }
+        global $json_api;
+        $newSegment = new JSON_API_Options_Segments($json_api->query);
+        $newSegment->delete();
+        return "done";
     }
+
 }
 
 ?>
