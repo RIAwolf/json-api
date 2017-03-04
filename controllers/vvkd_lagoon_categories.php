@@ -1,17 +1,18 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-class JSON_API_vvkd_segments_Controller {
+class JSON_API_vvkd_lagoon_categories_Controller {
 
 	public function get_values() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . JSON_API_Options_Segments::TABLE_NAME;
+		$table_name = $wpdb->prefix . JSON_API_Options_Lagoon_Categories::TABLE_NAME;
 		$results    = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY `Number` ASC;", OBJECT );
 		$rows       = array();
 		foreach ( $results as $r ) {
-			$rows[] = new JSON_API_Options_Segments( $r );
+			$rows[] = new JSON_API_Options_Lagoon_Categories( $r );
 		}
 
+		//return $results;
 		return array( "values" => array_values( $rows ) );
 	}
 
@@ -21,8 +22,8 @@ class JSON_API_vvkd_segments_Controller {
 			return ( "ok" );
 		}
 		global $json_api;
-		$newSegment = new JSON_API_Options_Segments($json_api->query);
-		$newSegment->save();
+		$item = new JSON_API_Options_Lagoon_Categories($json_api->query);
+		$item->save();
 		return "done";
 	}
 
@@ -32,8 +33,8 @@ class JSON_API_vvkd_segments_Controller {
             return ( "ok" );
         }
         global $json_api;
-        $newSegment = new JSON_API_Options_Segments($json_api->query);
-        $newSegment->delete();
+        $item = new JSON_API_Options_Lagoon_Categories($json_api->query);
+        $item->delete();
         return "done";
     }
 

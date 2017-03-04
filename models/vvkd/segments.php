@@ -3,6 +3,7 @@ class JSON_API_Options_Segments {
     var $id;      // Integer
     var $Name;    // String
     var $Number;     // String
+    const TABLE_NAME = 'vvkd_optionssegments';
     function JSON_API_Options_Segments ($row) {
         if ($row) {
             $this->import_wp_object($row);
@@ -26,10 +27,9 @@ class JSON_API_Options_Segments {
 
     function save(){
 		global $wpdb;
-	    $table_name = $wpdb->prefix . 'vvkd_optionssegments';
 		if(isset($this->id)){
 			$wpdb->update(
-				$table_name,
+                $wpdb->prefix .JSON_API_Options_Segments::TABLE_NAME,
 				array(
 					'Name' => $this->Name,
 					'Number' => $this->Number
@@ -43,7 +43,7 @@ class JSON_API_Options_Segments {
 			);
 		}else{
 			$wpdb->insert(
-				$table_name,
+                $wpdb->prefix .JSON_API_Options_Segments::TABLE_NAME,
 				array(
 					'Name' => $this->Name,
 					'Number' => $this->Number
@@ -58,10 +58,9 @@ class JSON_API_Options_Segments {
 
     function delete(){
         global $wpdb;
-        $table_name = $wpdb->prefix . 'vvkd_optionssegments';
         if(isset($this->id)){
             $wpdb->delete(
-                $table_name,
+                $wpdb->prefix .TABLE_NAME,
                 array( 'id' => $this->id ),
                 array( '%d' )
             );
